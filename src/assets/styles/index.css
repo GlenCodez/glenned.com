@@ -1,5 +1,7 @@
-html, body {
+html {
   box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
 }
 
 *, *:before, *:after {
@@ -18,4 +20,13 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+body, #root, .App {
+  height: 100%;
+  width: 100%;
+}
+
+.App {
+  background-color: #253030;
 }
