@@ -26,3 +26,19 @@ body, #root {
   height: 100%;
   width: 100%;
 }
+
+.nato-phonetics-body {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.nato-phonetics-body > div {
+  height: 2rem;
+  width: 20%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  margin: 2.5%;
+}
