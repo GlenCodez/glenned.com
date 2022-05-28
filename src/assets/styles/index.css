@@ -22,11 +22,7 @@ code {
     monospace;
 }
 
-body, #root, .App {
+body, #root {
   height: 100%;
   width: 100%;
-}
-
-.App {
-  background-color: #253030;
 }

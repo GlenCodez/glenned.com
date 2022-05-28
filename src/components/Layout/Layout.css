@@ -1,0 +1,16 @@
+.Layout {
+    height: 100%;
+    width: 100%;
+    background-color: #253030;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+main {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 1rem;
+}
+main > div {
+    display: flex;
+}
