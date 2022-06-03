@@ -2,13 +2,6 @@
   "name": "glenned.com",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "preinstall": "npx force-resolutions"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -42,5 +35,12 @@
   },
   "resolutions": {
     "nth-check": "2.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "preinstall": "npx force-resolutions"
   }
 }
