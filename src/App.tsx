@@ -1,9 +1,16 @@
 import React from 'react';
-import Layout from "./components/Layout/Layout";
+import './App.css';
+import Nav from "./components/Nav/Nav";
+import {Outlet} from "react-router-dom";
 
 function App() {
   return (
-      <Layout />
+      <div className="App">
+        <Nav />
+        <main>
+          <Outlet />
+        </main>
+      </div>
   );
 }
 
