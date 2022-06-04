@@ -6,4 +6,20 @@
     padding: 1rem;
     display: flex;
     flex-flow: column nowrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.profile-container {
+    display: inline-block;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 1rem;
+}
+.profile-container img {
+    width: auto;
+    height: 100%;
 }
