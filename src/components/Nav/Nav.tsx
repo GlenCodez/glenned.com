@@ -1,6 +1,8 @@
 import React from 'react';
 import './Nav.css';
 import {Link} from "react-router-dom";
+import {AiOutlineCalendar} from "react-icons/ai";
+import {VscFilePdf} from "react-icons/vsc";
 
 function Nav() {
     return (
@@ -10,12 +12,13 @@ function Nav() {
                     <img src="img/glen_burchfield_profile_picture.jpg" alt="Glen Burchfield Profile Picture" />
                 </div>
             </div>
-            <div className="nav-section">
+            <div className="nav-section nav-link-menu">
                 <Link to="/home">Home</Link>
                 <Link to="/blog">Blog</Link>
             </div>
-            <div className="nav-section">
-
+            <div className="nav-section nav-btn-grp">
+                <a className="nav-button" href="#">Resume <VscFilePdf className="nav-icon"/></a>
+                <a className="nav-button" href="#">Book <AiOutlineCalendar className="nav-icon" /></a>
             </div>
         </nav>
     );
