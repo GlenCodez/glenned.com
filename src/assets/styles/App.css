@@ -34,3 +34,22 @@ main > div {
     justify-content: flex-start;
     align-items: center;
 }
+
+.home-h1 {
+    font-size: 150px;
+    line-height: 150px;
+    font-weight: 700;
+    text-transfor: none;
+    text-decoration: none;
+    margin-top: 0;
+    margin-bottom: .5rem;
+    text-align: left;
+}
+
+.home-h3 {
+    font-size: 63px;
+    line-height: 70px;
+    font-weight: 400;
+    margin: 0 0 30px 0;
+    text-align: left;
+}
