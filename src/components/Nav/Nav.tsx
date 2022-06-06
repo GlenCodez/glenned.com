@@ -12,7 +12,7 @@ function Nav() {
             </div>
             <div className="nav-section">
                 <Link to="/home">Home</Link>
-                <Link to="/pilot">Pilot</Link>
+                <Link to="/blog">Blog</Link>
             </div>
             <div className="nav-section">
 
