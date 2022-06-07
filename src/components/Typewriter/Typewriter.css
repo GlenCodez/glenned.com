@@ -1,0 +1,13 @@
+.typewriter {
+    background: deeppink;
+    width: 600px;
+    display: flex;
+}
+
+.typewriter-block {
+    width: 30%;
+}
+
+.typewriter-data {
+    width: 70%;
+}
