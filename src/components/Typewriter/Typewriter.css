@@ -1,12 +1,32 @@
 .typewriter {
-    width: 600px;
+    width: 400px;
     display: flex;
+    background-image: linear-gradient(193deg, #313960 0%, #11152b 100%);
+    box-shadow: 0 0 0 0 #ffffff;
+    padding: 30px;
 }
 
-.typewriter-block {
-    width: 30%;
+.code_selector {
+    color: #ec91ff
 }
 
-.typewriter-data {
-    width: 70%;
+.code_braces, .code_property {
+    color: #edf2f5;
+}
+
+.code_value {
+    color: #73d9ff;
+}
+
+.lr-box1, .lr-box2 {
+    margin: 24px;
+}
+
+.lr-box1 {
+
+}
+
+.lr-box2 {
+    position: relative;
+    left: 15%;
 }
