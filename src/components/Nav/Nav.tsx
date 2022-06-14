@@ -19,6 +19,7 @@ function Nav() {
             <div className="nav-section nav-btn-grp">
                 <a className="nav-button" href="#">Resume <VscFilePdf className="nav-icon"/></a>
                 <a className="nav-button" href="#">Book <AiOutlineCalendar className="nav-icon" /></a>
+                <Link to="/budget" className="nav-button">Budget</Link>
             </div>
         </nav>
     );

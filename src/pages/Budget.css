@@ -1,0 +1,41 @@
+.budget-ctn {
+    height: 100%;
+}
+
+.budget-table-ctn {
+    height: 100%;
+    width: 100%;
+    border: 1px solid white;
+}
+
+
+.budget-table-head {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    height: 7%;
+}
+
+.budget-table-head div {
+    flex: 1;
+    border: 1px solid white;
+    color: white;
+    text-align: center;
+}
+
+.budget-table-body {
+    height: 93%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.budget-week {
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.budget-day {
+    flex: 1;
+    border: 1px solid white;
+}

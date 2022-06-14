@@ -43,6 +43,7 @@ section {
     align-items: center;
     justify-content: center;
 }
+
 section:first-child {
     height: calc(100vh - var(--nav-height));
 }
