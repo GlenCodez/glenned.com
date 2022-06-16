@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './assets/styles/index.css';
 import App from './App';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Home from "./pages/Home";
-import Blog from "./pages/Blog";
-import Budget from "./pages/Budget";
+import Home from "./pages/Home/Home";
+import Blog from "./pages/Blog/Blog";
+import Budget from "./pages/Budget/Budget";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

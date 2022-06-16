@@ -1,5 +1,5 @@
 import React from 'react';
-import Typewriter from "../components/Typewriter/Typewriter";
+import Typewriter from "../../components/Typewriter/Typewriter";
 
 function Home() {
     return (
