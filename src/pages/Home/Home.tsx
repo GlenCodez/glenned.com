@@ -1,5 +1,5 @@
 import React from 'react';
-import Typewriter from "../../components/Typewriter/Typewriter";
+import CodeBox from "../../components/CodeBox/CodeBox";
 import AppConfig from "../../config";
 
 function Home() {
@@ -13,10 +13,10 @@ function Home() {
                     <h1 className="home-h1">Hello</h1>
                     <h3 className="home-h3">I'm Glen</h3>
                     <div className="lr-box1">
-                        <Typewriter data={AppConfig.home.codeBox1} />
+                        <CodeBox data={AppConfig.home.codeBox1} />
                     </div>
                     <div className="lr-box2">
-                        <Typewriter data={AppConfig.home.codeBox2} />
+                        <CodeBox data={AppConfig.home.codeBox2} />
                     </div>
                 </div>
             </section>

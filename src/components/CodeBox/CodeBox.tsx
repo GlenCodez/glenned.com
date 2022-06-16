@@ -1,4 +1,4 @@
-import './Typewriter.css';
+import './CodeBox.css';
 import {useEffect, useRef} from "react";
 
 type TypewriterProps = {
@@ -8,7 +8,7 @@ type TypewriterProps = {
     }
 }
 
-function Typewriter({comment, data}:TypewriterProps){
+function CodeBox({comment, data}:TypewriterProps){
     const {variableName} = data
     return (
         <div className="typewriter">
@@ -32,5 +32,5 @@ function Typewriter({comment, data}:TypewriterProps){
     )
 }
 
-export default Typewriter
+export default CodeBox
 
