@@ -12,10 +12,12 @@
 
 .code_braces, .code_property {
     color: #edf2f5;
+    text-transform: capitalize;
 }
 
 .code_value {
     color: #73d9ff;
+    text-transform: capitalize;
 }
 
 .lr-box1, .lr-box2 {
