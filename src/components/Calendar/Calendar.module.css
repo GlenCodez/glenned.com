@@ -1,41 +1,54 @@
-.budget-ctn {
-    height: 100%;
-}
-
-.budget-table-ctn {
+.TableCtn {
     height: 100%;
     width: 100%;
     border: 1px solid white;
+    border-radius: 5px;
 }
 
 
-.budget-table-head {
+.TableHead {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     height: 7%;
 }
 
-.budget-table-head div {
+.TableHead div {
     flex: 1;
     border: 1px solid white;
     color: white;
     text-align: center;
 }
 
-.budget-table-body {
+.TableHead div:first-child {
+    border-top-left-radius: 5px;
+}
+
+.TableHead div:last-child {
+    border-top-right-radius: 5px;
+}
+
+.TableBody {
     height: 93%;
     display: flex;
     flex-flow: column nowrap;
 }
 
-.budget-week {
+.Week {
     flex: 1;
     display: flex;
     flex-flow: row nowrap;
 }
 
-.budget-day {
+.Week:last-child .Day:first-child {
+    border-bottom-left-radius: 5px;
+}
+
+.Week:last-child .Day:last-child {
+    border-bottom-right-radius: 5px;
+}
+
+.Day {
     flex: 1;
     border: 1px solid white;
 }
