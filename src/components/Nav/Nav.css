@@ -1,25 +1,78 @@
 .main-nav {
-    height: 100%;
-    width: 19%;
-    border-right: 1px solid #111;
-    box-shadow: 1px 0 1px #111;
-    padding: 1rem;
+    height: var(--nav-height);
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    border-bottom: 1px solid #111;
+    box-shadow: 1px 2px 1px #111;
+    padding: 0 60px;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .profile-container {
     display: inline-block;
     position: relative;
-    width: 200px;
-    height: 200px;
+    width: calc(var(--nav-height) - 15px);
+    height: calc(var(--nav-height) - 15px);
     overflow: hidden;
     border-radius: 50%;
-    margin: 1rem;
+    margin: 0;
 }
 .profile-container img {
     width: auto;
     height: 100%;
+}
+
+.nav-section {
+    height: 100%;
+    flex: 10;
+    display: flex;
+    align-items: center;
+}
+.nav-link-menu {
+    flex: 60;
+    justify-content: flex-start;
+}
+.nav-btn-grp {
+    flex: 30;
+    justify-content: flex-end;
+}
+.nav-link-menu a {
+    line-height: 80px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 1.14px;
+    color: var(--nav-link-color-inactive);
+    margin-left: 16px;
+}
+.nav-btn-grp a {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 25px;
+    border: solid 1px #ccc;
+    color: #ccc;
+    padding: 9px 23px;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    white-space: pre-line;
+    vertical-align: middle;
+    user-select: none;
+    transition: all .15s ease-in-out;
+    margin-left: 12px;
+}
+
+.nav-icon {
+    color: #ccc;
+    font-size: 24px;
 }

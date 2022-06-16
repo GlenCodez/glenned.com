@@ -1,0 +1,19 @@
+:root {
+    --main-bg-color: #11152b;
+    --main-bg-color-transparent: rgba(17,21,43,.9);
+    --text-color-1: #04e8b9;
+    --text-color-2: #73d9ff;
+    --nav-link-color-inactive: rgba(153,149,149,.7);
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    color: var(--text-color-1);
+}
+
+h3 {
+    color: var(--text-color-2);
+}
