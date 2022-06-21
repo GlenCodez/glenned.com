@@ -20,8 +20,8 @@ function CodeBox({comment, data}:TypewriterProps){
                                 const [key,value] = line
                                 if(key !== "variableName") {
                                     return (
-                                        <>&nbsp; &nbsp;<span className="code_property">{key}:</span><span
-                                            className="code_value">{value},</span> <br/></>
+                                        <div key={`prop_${key}`}>&nbsp; &nbsp;<span className="code_property">{key}:</span><span
+                                            className="code_value">{value},</span> <br/></div>
                                     )
                                 }
                             })
