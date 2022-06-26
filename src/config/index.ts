@@ -1,4 +1,7 @@
 const AppConfig = {
+    api: {
+      base: process.env.API_BASE || "http://localhost:8000/v1"
+    },
     home: {
         codeBox1: {
             variableName: "name",

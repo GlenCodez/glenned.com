@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './assets/styles/index.css';
-import App from './App';
+import {Provider} from 'react-redux';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Blog from "./pages/Blog/Blog";
-import Budget from "./pages/Budget/Budget";
+import App from './app/App';
+import './assets/styles/index.css';
+import Blog from "./app/pages/Blog/Blog";
+import Budget from "./app/pages/Budget/Budget";
+import Home from "./app/pages/Home/Home";
+import store from "./store/store"
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,6 +15,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
+      <Provider store={store}>
       <BrowserRouter>
           <Routes>
               <Route path="/" element={<App />}>
@@ -23,5 +26,6 @@ root.render(
               </Route>
           </Routes>
       </BrowserRouter>
+      </Provider>
   </React.StrictMode>
 );
