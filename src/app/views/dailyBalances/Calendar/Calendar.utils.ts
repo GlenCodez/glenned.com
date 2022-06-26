@@ -12,12 +12,11 @@ export const daysOfWeek = [
 export const weekOfMonth = [0,1,2,3,4]
 
 export const transformBalanceData = (input: any) => {
-  console.log(input)
-  // Object.entries(balances).forEach((entry,index) => {
-  //   if(index === 0) {
-  //     console.log(daysOfWeek[moment(entry[0]).day()])
-  //   }
-  // })
+  Object.entries(input).forEach((entry,index) => {
+    if(index === 0) {
+      console.log(entry)
+    }
+  })
 }
 
 export type CalendarProps = {
