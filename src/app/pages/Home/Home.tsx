@@ -1,6 +1,6 @@
 import React from 'react';
-import CodeBox from "../../components/CodeBox/CodeBox";
-import AppConfig from "../../config";
+import CodeBox from "../../../components/CodeBox/CodeBox";
+import AppConfig from "../../../config";
 
 function Home() {
     return (
