@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Loading from "../../../components/Loading/Loading";
+import Loading from "../../components/Loading/Loading";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import Calendar from "../../views/dailyBalances/Calendar/Calendar";
 import {fetchDailyBalances} from "../../../store/slices/budgetSlice";
