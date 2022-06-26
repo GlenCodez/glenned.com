@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import Calendar from "../../../components/Calendar/Calendar";
+import Calendar from "../../../views/dailyBalances/Calendar/Calendar";
 import {fetchDailyBalances} from "../../../store/slices/budgetSlice";
 import styles from "./Budget.module.css";
 
