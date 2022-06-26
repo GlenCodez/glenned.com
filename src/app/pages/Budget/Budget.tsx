@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import Loading from "../../../components/Loading/Loading";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import Calendar from "../../../views/dailyBalances/Calendar/Calendar";
 import {fetchDailyBalances} from "../../../store/slices/budgetSlice";
@@ -14,11 +15,7 @@ function Budget() {
     }, [dispatch, budgetSlice.status])
 
     if(budgetSlice.status === 'idle' || budgetSlice.status === 'loading'){
-        return (
-            <div>
-                <h1>Loading...</h1>
-            </div>
-        )
+        return <Loading/>
     }
 
     return (
