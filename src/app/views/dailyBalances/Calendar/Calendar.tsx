@@ -1,10 +1,11 @@
 import moment from "moment";
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./Calendar.module.css";
 import {CalendarProps, daysOfWeek, weekOfMonth, transformBalanceData} from "./Calendar.utils"
 
 
 function Calendar({balances}: CalendarProps) {
+    const [activeMonth, setActiveMonth] = useState(moment().startOf("month"))
 
     useEffect(() => {
         if(balances){
@@ -13,6 +14,10 @@ function Calendar({balances}: CalendarProps) {
     }, [balances])
 
     return (
+      <div className={`${styles.ctn}`}>
+        <div>
+          <h1>{activeMonth.format("MMMM")}</h1>
+        </div>
         <div className={`${styles.TableCtn}`}>
             <div className={`${styles.TableHead}`}>
                 {
@@ -41,6 +46,7 @@ function Calendar({balances}: CalendarProps) {
                 }
             </div>
         </div>
+      </div>
     )
 }
 
