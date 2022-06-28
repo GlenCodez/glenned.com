@@ -13,7 +13,7 @@ const client = {
             try {
                 const response = await httpClient.request({
                     method: "get",
-                    url: "/balances"
+                    url: "/daily-balances"
                 })
                 return response.data
             } catch (e) {
