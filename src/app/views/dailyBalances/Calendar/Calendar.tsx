@@ -1,17 +1,19 @@
+import {BalancesResponse} from "glentils/dist/types";
 import moment from "moment";
 import React, {useEffect, useState} from 'react';
 import styles from "./Calendar.module.css";
-import {CalendarProps, daysOfWeek, weekOfMonth, transformBalanceData} from "./Calendar.utils"
+import {CalendarProps, daysOfWeek, transformBalanceData} from "./Calendar.utils"
 
 
 function Calendar({balances}: CalendarProps) {
     const [activeMonth, setActiveMonth] = useState(moment().startOf("month"))
+    const [weeksInMonth, setWeeksInMonth] = useState<string[][]>()
 
     useEffect(() => {
         if(balances){
-            transformBalanceData(balances)
+            setWeeksInMonth(transformBalanceData(balances as BalancesResponse, activeMonth))
         }
-    }, [balances])
+    }, [activeMonth, balances, setWeeksInMonth])
 
     return (
       <div className={`${styles.ctn}`}>
@@ -30,11 +32,11 @@ function Calendar({balances}: CalendarProps) {
             </div>
             <div className={styles.TableBody}>
                 {
-                    weekOfMonth.map((week) => {
+                    weeksInMonth?.map((week, index) => {
                         return (
-                            <div key={`week-${week}`} className={`${styles.Week}`}>
+                            <div key={`week-${index}`} className={`${styles.Week}`}>
                                 {
-                                    daysOfWeek.map((day) => {
+                                    week.map((day) => {
                                         return (
                                             <div key={day + week} className={`${styles.Day}`}>{day}</div>
                                         )

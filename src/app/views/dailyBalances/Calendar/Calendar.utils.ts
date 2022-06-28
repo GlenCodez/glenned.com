@@ -1,4 +1,5 @@
-import moment from "moment";
+import {BalancesResponse} from "glentils/dist/types";
+import moment, {Moment} from "moment";
 
 export const daysOfWeek = [
   "Sunday",
@@ -9,14 +10,40 @@ export const daysOfWeek = [
   "Friday",
   "Saturday"
 ]
-export const weekOfMonth = [0,1,2,3,4]
+export const weeksInMonth: string[][] = [
+  ["","","","","","",""],
+  ["","","","","","",""],
+  ["","","","","","",""],
+  ["","","","","","",""],
+  ["","","","","","",""]
+]
 
-export const transformBalanceData = (input: any) => {
-  Object.entries(input).forEach((entry,index) => {
-    console.log(entry[0])
+
+export const transformBalanceData = (input: BalancesResponse, activeMonth: Moment) => {
+  const {latestMonthEnding, dailyBalances} = input
+  let lastBalance = latestMonthEnding.amount
+  const startDay = activeMonth.day()
+  let started = false
+  const activeDay = moment(activeMonth)
+  weeksInMonth.forEach((week, weekIndex) => {
+    week.forEach((day,dayIndex) => {
+      if(dayIndex === startDay || started){
+        started = true
+        const key = activeDay.format("YYYY-MM-DD")
+        const dayDetails = dailyBalances[key]
+        if(!dayDetails){
+          weeksInMonth[weekIndex][dayIndex] = lastBalance
+        } else {
+          weeksInMonth[weekIndex][dayIndex] = dayDetails.balance
+          lastBalance = dayDetails.balance
+        }
+        activeDay.add(1, 'day')
+      }
+    })
   })
+  return weeksInMonth
 }
 
 export type CalendarProps = {
-  balances: any
+  balances: BalancesResponse | {}
 }
