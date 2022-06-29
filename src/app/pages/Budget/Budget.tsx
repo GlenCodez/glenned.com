@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import Loading from "../../../components/Loading/Loading";
+import React, {useEffect} from 'react';
+import Loading from "../../components/Loading/Loading";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import Calendar from "../../../views/dailyBalances/Calendar/Calendar";
+import Calendar from "../../views/dailyBalances/Calendar/Calendar";
 import {fetchDailyBalances} from "../../../store/slices/budgetSlice";
 import styles from "./Budget.module.css";
 
@@ -20,7 +20,6 @@ function Budget() {
 
     return (
         <div className={`${styles.budgetCtn}`}>
-            <h1>Budget</h1>
             <Calendar balances={budgetSlice.dailyBalances}/>
         </div>
     )
