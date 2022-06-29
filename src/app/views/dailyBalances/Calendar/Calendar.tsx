@@ -2,18 +2,18 @@ import {BalancesResponse} from "glentils/dist/types";
 import moment from "moment";
 import React, {useEffect, useState} from 'react';
 import styles from "./Calendar.module.css";
-import {CalendarProps, daysOfWeek, transformBalanceData} from "./Calendar.utils"
+import {CalendarProps, daysOfWeek, BuildBalanceMatrix, DayDetailsDisplay} from "./Calendar.utils"
 
 
 function Calendar({balances}: CalendarProps) {
     const [activeMonth, setActiveMonth] = useState(moment().startOf("month"))
-    const [weeksInMonth, setWeeksInMonth] = useState<string[][]>()
+    const [balanceMatrix, setBalanceMatrix] = useState<DayDetailsDisplay[][]>()
 
     useEffect(() => {
         if(balances){
-            setWeeksInMonth(transformBalanceData(balances as BalancesResponse, activeMonth))
+            setBalanceMatrix(BuildBalanceMatrix(balances as BalancesResponse, activeMonth))
         }
-    }, [activeMonth, balances, setWeeksInMonth])
+    }, [activeMonth, balances, setBalanceMatrix])
 
     return (
       <div className={`${styles.ctn}`}>
@@ -32,13 +32,29 @@ function Calendar({balances}: CalendarProps) {
             </div>
             <div className={styles.TableBody}>
                 {
-                    weeksInMonth?.map((week, index) => {
+                    balanceMatrix?.map((week, W) => {
                         return (
-                            <div key={`week-${index}`} className={`${styles.Week}`}>
+                            <div key={`week-${W}`} className={`${styles.Week}`}>
                                 {
-                                    week.map((day) => {
+                                    week.map((day, D) => {
+                                        const {transactions, balance, dayOfMonth} = day
                                         return (
-                                            <div key={day + week} className={`${styles.Day}`}>{day}</div>
+                                            <div key={`week-${W}-day-${D}`} className={`${styles.Day} ${transactions? styles.hasTransactions : ""}`}>
+                                                {dayOfMonth && (
+                                                  <>
+                                                      <div className={`${styles.date}`}>{dayOfMonth}</div>
+                                                      <div>
+                                                          {
+                                                              transactions?.map((t, T) => {
+                                                                  return (
+                                                                    <div key={`${t.name}-${T}`}>{t.name}</div>
+                                                                  )
+                                                              })
+                                                          }
+                                                      </div>
+                                                      <div className={`${styles.balance}`}>{balance}</div>
+                                                  </>)}
+                                            </div>
                                         )
                                     })
                                 }

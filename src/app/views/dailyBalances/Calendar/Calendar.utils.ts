@@ -1,4 +1,4 @@
-import {BalancesResponse} from "glentils/dist/types";
+import {BalancesResponse, DayDetails} from "glentils/dist/types";
 import moment, {Moment} from "moment";
 
 export const daysOfWeek = [
@@ -10,38 +10,46 @@ export const daysOfWeek = [
   "Friday",
   "Saturday"
 ]
-export const weeksInMonth: string[][] = [
-  ["","","","","","",""],
-  ["","","","","","",""],
-  ["","","","","","",""],
-  ["","","","","","",""],
-  ["","","","","","",""]
-]
 
+export type DayDetailsDisplay = {
+  transactions?: DayDetails["transactions"],
+  balance?: DayDetails["balance"],
+  dayOfMonth: string | null
+}
 
-export const transformBalanceData = (input: BalancesResponse, activeMonth: Moment) => {
+export const BuildBalanceMatrix = (input: BalancesResponse, activeMonth: Moment): DayDetailsDisplay[][] => {
+  const balanceMatrix: DayDetailsDisplay[][] = []
+  const weeksCount = 5
+  const dayCount = 7
   const {latestMonthEnding, dailyBalances} = input
-  let lastBalance = latestMonthEnding.amount
   const startDay = activeMonth.day()
   let started = false
+  let currentBalance = latestMonthEnding.amount
   const activeDay = moment(activeMonth)
-  weeksInMonth.forEach((week, weekIndex) => {
-    week.forEach((day,dayIndex) => {
-      if(dayIndex === startDay || started){
+  for(let w = 0; w < weeksCount; w++){
+    balanceMatrix[w] = []
+    for(let d = 0; d < dayCount; d++){
+      const element: DayDetailsDisplay = {
+        dayOfMonth: null,
+        balance: currentBalance
+      }
+      if(d === startDay || started){
         started = true
         const key = activeDay.format("YYYY-MM-DD")
         const dayDetails = dailyBalances[key]
-        if(!dayDetails){
-          weeksInMonth[weekIndex][dayIndex] = lastBalance
-        } else {
-          weeksInMonth[weekIndex][dayIndex] = dayDetails.balance
-          lastBalance = dayDetails.balance
+        if(dayDetails){
+          element.transactions = dayDetails.transactions
+          element.balance = dayDetails.balance
+          currentBalance = dayDetails.balance
         }
+        element.dayOfMonth = activeDay.date().toString()
         activeDay.add(1, 'day')
       }
-    })
-  })
-  return weeksInMonth
+      balanceMatrix[w][d] = element;
+    }
+  }
+  console.log(balanceMatrix)
+  return balanceMatrix
 }
 
 export type CalendarProps = {
