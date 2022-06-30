@@ -13,11 +13,22 @@ export const fetchDailyBalances = createAsyncThunk('budget/fetchDailyBalances', 
     return data;
 })
 
+export const fetchTransactionConfigs = createAsyncThunk('budget/fetchTransactionConfigs', async () => {
+    const data = await client.get.transactionConfigs();
+    return data;
+})
+
 const slice = createSlice({
     name: 'budget',
     initialState: {
-        status: 'idle',
-        dailyBalances: {}
+        dailyBalances: {
+            status: 'idle',
+            data: {}
+        },
+        transactionConfigs: {
+            status: 'idle',
+            data: {}
+        }
     },
     reducers: {
         dummy: () => {}
@@ -25,14 +36,24 @@ const slice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchDailyBalances.pending, (state, action) => {
-                state.status = 'loading'
+                state.dailyBalances.status = 'loading'
             })
             .addCase(fetchDailyBalances.fulfilled, (state, action) => {
-                state.status = 'success'
-                state.dailyBalances = action.payload
+                state.dailyBalances.status = 'success'
+                state.dailyBalances.data = action.payload
             })
             .addCase((fetchDailyBalances.rejected), (state, action) => {
-                state.status = 'fail'
+                state.dailyBalances.status = 'fail'
+            })
+            .addCase(fetchTransactionConfigs.pending, (state, action) => {
+              state.transactionConfigs.status = 'loading'
+            })
+            .addCase(fetchTransactionConfigs.fulfilled, (state, action) => {
+              state.transactionConfigs.status = 'success'
+              state.transactionConfigs.data = action.payload
+            })
+            .addCase((fetchTransactionConfigs.rejected), (state, action) => {
+              state.transactionConfigs.status = 'fail'
             })
     }
 })

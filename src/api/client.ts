@@ -20,6 +20,18 @@ const client = {
                 console.log(e)
                 throw e
             }
+        },
+        transactionConfigs: async () => {
+            try {
+                const response = await httpClient.request({
+                    method: "get",
+                    url: "/transaction-configs"
+                })
+                return response.data
+            } catch (e) {
+                console.log(e)
+                throw e
+            }
         }
     }
 }
