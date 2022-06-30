@@ -77,3 +77,11 @@
 .balance {
     padding: 0 0 8px 0;
 }
+
+.transaction {
+    width: 100%;
+    padding: 0 8px 0 8px;
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+}
