@@ -1,19 +1,34 @@
 import {BalancesResponse} from "glentils/dist/types";
-import moment from "moment";
+import moment, {Moment} from "moment";
 import React, {useEffect, useState} from 'react';
+import {useSearchParams} from "react-router-dom";
+import Loading from "../../../components/Loading/Loading";
 import styles from "./Calendar.module.css";
 import {CalendarProps, daysOfWeek, BuildBalanceMatrix, DayDetailsDisplay} from "./Calendar.utils"
 
 
 function Calendar({balances}: CalendarProps) {
-    const [activeMonth, setActiveMonth] = useState(moment().startOf("month"))
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [activeMonth, setActiveMonth] = useState<Moment>()
     const [balanceMatrix, setBalanceMatrix] = useState<DayDetailsDisplay[][]>()
 
     useEffect(() => {
-        if(balances){
-            setBalanceMatrix(BuildBalanceMatrix(balances as BalancesResponse, activeMonth))
+        const initialMonth = moment().startOf("month")
+        if(!searchParams.get("month")){
+            setSearchParams({
+                month: initialMonth.format("YYYY-MM")
+            })
+        } else {
+            if(balances && activeMonth){
+                setBalanceMatrix(BuildBalanceMatrix(balances as BalancesResponse, activeMonth))
+            } else {
+                const month = moment(searchParams.get("month")).startOf("month")
+                setActiveMonth(month)
+            }
         }
     }, [activeMonth, balances, setBalanceMatrix])
+
+    if(!activeMonth) return <Loading/>
 
     return (
       <div className={`${styles.ctn}`}>
