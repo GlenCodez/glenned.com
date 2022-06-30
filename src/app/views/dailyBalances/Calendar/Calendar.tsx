@@ -43,15 +43,13 @@ function Calendar({balances}: CalendarProps) {
                                                 {dayOfMonth && (
                                                   <>
                                                       <div className={`${styles.date}`}>{dayOfMonth}</div>
-                                                      <div>
                                                           {
                                                               transactions?.map((t, T) => {
                                                                   return (
-                                                                    <div key={`${t.name}-${T}`}>{t.name}</div>
+                                                                    <div key={`${t.name}-${T}`} className={`${styles.transaction}`}><span>{t.name}:</span><span>{t.amount}</span></div>
                                                                   )
                                                               })
                                                           }
-                                                      </div>
                                                       <div className={`${styles.balance}`}>{balance}</div>
                                                   </>)}
                                             </div>
