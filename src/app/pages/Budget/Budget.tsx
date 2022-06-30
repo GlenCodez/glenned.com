@@ -3,6 +3,7 @@ import Loading from "../../components/Loading/Loading";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import Calendar from "../../views/dailyBalances/Calendar/Calendar";
 import {fetchDailyBalances, fetchTransactionConfigs} from "../../../store/slices/budgetSlice";
+import SideDisplay from "../../views/transactionConfigs/SideDisplay";
 import styles from "./Budget.module.css";
 
 function Budget() {
@@ -24,6 +25,7 @@ function Budget() {
 
     return (
         <div className={`${styles.budgetCtn}`}>
+            <SideDisplay name={`Transaction Configs`} data={transactionConfigs.data} />
             <Calendar balances={dailyBalances.data}/>
         </div>
     )

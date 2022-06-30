@@ -1,11 +1,27 @@
 import {AnyAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {DailyBalances, PeriodicTransactionConfig} from "glentils/dist/types";
 import client from "../../api/client";
 
-type State = {
-    status: string;
+type BudgetState = {
     dailyBalances: {
-        [key:string]: any
+        status: string;
+        data: DailyBalances
     };
+    transactionConfigs: {
+        status: string;
+        data: PeriodicTransactionConfig[]
+    }
+}
+
+const initialState: BudgetState = {
+    dailyBalances: {
+        status: 'idle',
+        data: {}
+    },
+    transactionConfigs: {
+        status: 'idle',
+        data: []
+    }
 }
 
 export const fetchDailyBalances = createAsyncThunk('budget/fetchDailyBalances', async () => {
@@ -20,39 +36,30 @@ export const fetchTransactionConfigs = createAsyncThunk('budget/fetchTransaction
 
 const slice = createSlice({
     name: 'budget',
-    initialState: {
-        dailyBalances: {
-            status: 'idle',
-            data: {}
-        },
-        transactionConfigs: {
-            status: 'idle',
-            data: {}
-        }
-    },
+    initialState,
     reducers: {
         dummy: () => {}
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchDailyBalances.pending, (state, action) => {
+            .addCase(fetchDailyBalances.pending, (state: BudgetState, action) => {
                 state.dailyBalances.status = 'loading'
             })
-            .addCase(fetchDailyBalances.fulfilled, (state, action) => {
+            .addCase(fetchDailyBalances.fulfilled, (state: BudgetState, action) => {
                 state.dailyBalances.status = 'success'
                 state.dailyBalances.data = action.payload
             })
-            .addCase((fetchDailyBalances.rejected), (state, action) => {
+            .addCase((fetchDailyBalances.rejected), (state: BudgetState, action) => {
                 state.dailyBalances.status = 'fail'
             })
-            .addCase(fetchTransactionConfigs.pending, (state, action) => {
+            .addCase(fetchTransactionConfigs.pending, (state: BudgetState, action) => {
               state.transactionConfigs.status = 'loading'
             })
-            .addCase(fetchTransactionConfigs.fulfilled, (state, action) => {
+            .addCase(fetchTransactionConfigs.fulfilled, (state: BudgetState, action) => {
               state.transactionConfigs.status = 'success'
               state.transactionConfigs.data = action.payload
             })
-            .addCase((fetchTransactionConfigs.rejected), (state, action) => {
+            .addCase((fetchTransactionConfigs.rejected), (state: BudgetState, action) => {
               state.transactionConfigs.status = 'fail'
             })
     }
