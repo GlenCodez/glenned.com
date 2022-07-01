@@ -1,1 +1,3 @@
-export const DummyFunction = () => {}
+export const AddTransactionConfig = () => {
+  console.log(`Add Transaction Config`)
+}
