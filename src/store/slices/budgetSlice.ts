@@ -1,5 +1,6 @@
 import {AnyAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {DailyBalances, PeriodicTransactionConfig} from "glentils/dist/types";
+import {WithId} from "mongodb";
 import client from "../../api/client";
 
 type BudgetState = {
@@ -9,7 +10,7 @@ type BudgetState = {
     };
     transactionConfigs: {
         status: string;
-        data: PeriodicTransactionConfig[]
+        data: WithId<PeriodicTransactionConfig>[]
     }
 }
 
