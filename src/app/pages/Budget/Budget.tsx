@@ -9,7 +9,6 @@ import styles from "./Budget.module.css";
 function Budget() {
     const dispatch = useAppDispatch()
     const {dailyBalances,transactionConfigs} = useAppSelector(state => state.budget)
-    console.log(transactionConfigs)
     useEffect(() => {
         if(dailyBalances.status === 'idle'){
             dispatch(fetchDailyBalances())

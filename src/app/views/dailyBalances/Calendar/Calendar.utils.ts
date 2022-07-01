@@ -48,7 +48,6 @@ export const BuildBalanceMatrix = (input: BalancesResponse, activeMonth: Moment)
       balanceMatrix[w][d] = element;
     }
   }
-  console.log(balanceMatrix)
   return balanceMatrix
 }
 
