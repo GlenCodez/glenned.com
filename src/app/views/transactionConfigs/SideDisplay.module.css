@@ -73,3 +73,22 @@
     transition: all .15s ease-in-out;
     margin: 4px;
 }
+
+.tcItem {
+
+}
+
+.tcItemDetails {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+}
+
+.tcItemDetails > p:nth-child(even) {
+    width: 50%;
+}
+
+.tcItemDetails > p:nth-child(odd) {
+    width: 50%;
+
+}

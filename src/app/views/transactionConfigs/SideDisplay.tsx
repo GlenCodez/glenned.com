@@ -2,7 +2,7 @@ import {PeriodicTransactionConfig} from "glentils/dist/types";
 import {ObjectId, WithId} from "mongodb";
 import {memo, useCallback, useState} from "react";
 import styles from "./SideDisplay.module.css";
-import {AddTransactionConfig} from "./SideDisplay.utils";
+import {AddTransactionConfig, CamelCaseToWords} from "./SideDisplay.utils";
 
 export type SideDisplayProps = {
   name: string;
@@ -53,13 +53,22 @@ type TCItemProps = {
 
 const TCItem = ({tcItem, backToList}: TCItemProps) => {
   return (
-    <div>
+    <div className={styles.tcItem}>
       <div>
-        <button onClick={backToList}>Back</button>
+        <button className={styles.btn} onClick={backToList}>Back</button>
+        <button className={styles.btn} onClick={backToList}>Pay</button>
       </div>
-      <div>
-        <p>{tcItem.name}</p>
-        <p>{tcItem.amount}</p>
+      <div className={styles.tcItemDetails}>
+        {
+          Object.entries(tcItem).map(([key,value]) => {
+            const skipKeys = ["_id"]
+            if(skipKeys.includes(key)) return null
+            return (<>
+              <p>{CamelCaseToWords(key)}:</p>
+              <p>{value.toString()}</p>
+            </>)
+          })
+        }
       </div>
     </div>
   )
