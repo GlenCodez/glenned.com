@@ -36,7 +36,7 @@ const TCList = ({data, selectTCItem}: TCListProps) => {
             name
           } = tc
           return (
-            <li key={`${_id}`} className={`${styles.tcItem}`} onClick={() => selectTCItem(_id)}>
+            <li key={`${_id}`} className={`${styles.tcListItem}`} onClick={() => selectTCItem(_id)}>
               <p>{name}</p>
             </li>
           )
