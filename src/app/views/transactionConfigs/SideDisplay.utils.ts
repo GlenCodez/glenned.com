@@ -8,3 +8,7 @@ export const CamelCaseToWords = (str: string) => {
   console.log(str, finalResult)
   return finalResult
 }
+
+export const OpenNewTab = (url: string) => {
+  window.open(url,"_blank")
+}
