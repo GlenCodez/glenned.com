@@ -2,25 +2,30 @@ import React, {useEffect} from 'react';
 import Loading from "../../components/Loading/Loading";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import Calendar from "../../views/dailyBalances/Calendar/Calendar";
-import {fetchDailyBalances} from "../../../store/slices/budgetSlice";
+import {fetchDailyBalances, fetchTransactionConfigs} from "../../../store/slices/budgetSlice";
+import SideDisplay from "../../views/transactionConfigs/SideDisplay";
 import styles from "./Budget.module.css";
 
 function Budget() {
     const dispatch = useAppDispatch()
-    const budgetSlice = useAppSelector(state => state.budget)
+    const {dailyBalances,transactionConfigs} = useAppSelector(state => state.budget)
     useEffect(() => {
-        if(budgetSlice.status === 'idle'){
+        if(dailyBalances.status === 'idle'){
             dispatch(fetchDailyBalances())
         }
-    }, [dispatch, budgetSlice.status])
+        if(transactionConfigs.status === 'idle'){
+            dispatch(fetchTransactionConfigs())
+        }
+    }, [dispatch, dailyBalances, transactionConfigs])
 
-    if(budgetSlice.status === 'idle' || budgetSlice.status === 'loading'){
+    if(dailyBalances.status === 'idle' || dailyBalances.status === 'loading'){
         return <Loading/>
     }
 
     return (
         <div className={`${styles.budgetCtn}`}>
-            <Calendar balances={budgetSlice.dailyBalances}/>
+            <SideDisplay name={`Transaction Configs`} data={transactionConfigs.data} />
+            <Calendar balances={dailyBalances.data}/>
         </div>
     )
 }
