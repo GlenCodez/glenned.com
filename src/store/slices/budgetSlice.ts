@@ -1,12 +1,14 @@
 import {AnyAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {DailyBalances, PeriodicTransactionConfig} from "glentils/dist/types";
+import {BalancesResponse, DailyBalances, PeriodicTransactionConfig} from "glentils/dist/types";
+import moment, {Moment} from "moment";
 import {WithId} from "mongodb";
 import client from "../../api/client";
+import {DayDetailsDisplay} from "../../app/views/dailyBalances/Calendar/Calendar.utils";
 
 type BudgetState = {
     dailyBalances: {
         status: string;
-        data: DailyBalances
+        data: DayDetailsDisplay[][]
     };
     transactionConfigs: {
         status: string;
@@ -17,7 +19,7 @@ type BudgetState = {
 const initialState: BudgetState = {
     dailyBalances: {
         status: 'idle',
-        data: {}
+        data: []
     },
     transactionConfigs: {
         status: 'idle',
@@ -25,9 +27,43 @@ const initialState: BudgetState = {
     }
 }
 
-export const fetchDailyBalances = createAsyncThunk('budget/fetchDailyBalances', async () => {
-    const data = await client.get.dailyBalances();
-    return data;
+export const BuildBalanceMatrix = (input: BalancesResponse, activeMonth: Moment): DayDetailsDisplay[][] => {
+    const balanceMatrix: DayDetailsDisplay[][] = []
+    const weeksCount = 5
+    const dayCount = 7
+    const {latestMonthEnding, dailyBalances} = input
+    const startDay = activeMonth.day()
+    let started = false
+    let currentBalance = latestMonthEnding.amount
+    const activeDay = moment(activeMonth)
+    for(let w = 0; w < weeksCount; w++){
+        balanceMatrix[w] = []
+        for(let d = 0; d < dayCount; d++){
+            const element: DayDetailsDisplay = {
+                dayOfMonth: null,
+                balance: currentBalance
+            }
+            if(d === startDay || started){
+                started = true
+                const key = activeDay.format("YYYY-MM-DD")
+                const dayDetails = dailyBalances[key]
+                if(dayDetails){
+                    element.transactions = dayDetails.transactions
+                    element.balance = dayDetails.balance
+                    currentBalance = dayDetails.balance
+                }
+                element.dayOfMonth = activeDay.date().toString()
+                activeDay.add(1, 'day')
+            }
+            balanceMatrix[w][d] = element;
+        }
+    }
+    return balanceMatrix
+}
+
+export const fetchDailyBalances = createAsyncThunk('budget/fetchDailyBalances', async (month: Moment) => {
+    const data = await client.get.dailyBalances(month);
+    return BuildBalanceMatrix(data, month);
 })
 
 export const fetchTransactionConfigs = createAsyncThunk('budget/fetchTransactionConfigs', async () => {

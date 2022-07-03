@@ -1,4 +1,6 @@
 import axios from "axios";
+import {BalancesResponse} from "glentils/dist/types";
+import {Moment} from "moment";
 import config from "../config";
 
 const httpClient = axios.create({
@@ -9,11 +11,14 @@ const httpClient = axios.create({
 
 const client = {
     get: {
-        dailyBalances: async () => {
+        dailyBalances: async (month: Moment): Promise<BalancesResponse> => {
             try {
                 const response = await httpClient.request({
                     method: "get",
-                    url: "/daily-balances"
+                    url: "/balances",
+                    params: {
+                        date: month.format("YYYY-MM")
+                    }
                 })
                 return response.data
             } catch (e) {

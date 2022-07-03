@@ -1,46 +1,17 @@
-import {BalancesResponse} from "glentils/dist/types";
-import moment, {Moment} from "moment";
-import React, {useCallback, useEffect, useState} from 'react';
-import {useSearchParams} from "react-router-dom";
+import  {Moment} from "moment";
+import React from 'react';
 import Loading from "../../../components/Loading/Loading";
+import {ChangeMonthAction} from "../../../pages/Budget/Budget";
 import styles from "./Calendar.module.css";
-import {CalendarProps, daysOfWeek, BuildBalanceMatrix, DayDetailsDisplay} from "./Calendar.utils"
+import {daysOfWeek, DayDetailsDisplay} from "./Calendar.utils"
 
-type ChangeMonthAction = "last" | "next"
+type CalendarProps = {
+    activeMonth: Moment | undefined;
+    balanceMatrix: DayDetailsDisplay[][];
+    ChangeMonth: (action: ChangeMonthAction, activeMonth: Moment) => void
+}
 
-function Calendar({balances}: CalendarProps) {
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [activeMonth, setActiveMonth] = useState<Moment>()
-    const [balanceMatrix, setBalanceMatrix] = useState<DayDetailsDisplay[][]>()
-
-    const ChangeMonth = useCallback((action: ChangeMonthAction, activeMonth: Moment) => {
-        let nextMonth = activeMonth.format("YYYY-MM")
-        if(action === "last") {
-            nextMonth = activeMonth.subtract(1,"month").format("YYYY-MM")
-        }
-        if(action === "next") {
-            nextMonth = activeMonth.add(1,"month").format("YYYY-MM")
-        }
-        setSearchParams({
-            month: nextMonth
-        })
-    },[])
-
-    useEffect(() => {
-        const initialMonth = moment().startOf("month")
-        if(!searchParams.get("month")){
-            setSearchParams({
-                month: initialMonth.format("YYYY-MM")
-            })
-        } else {
-            if(balances && activeMonth){
-                setBalanceMatrix(BuildBalanceMatrix(balances as BalancesResponse, activeMonth))
-            } else {
-                const month = moment(searchParams.get("month")).startOf("month")
-                setActiveMonth(month)
-            }
-        }
-    }, [activeMonth, balances, setBalanceMatrix, searchParams])
+function Calendar({balanceMatrix, activeMonth, ChangeMonth}: CalendarProps) {
 
     if(!activeMonth) return <Loading/>
 
