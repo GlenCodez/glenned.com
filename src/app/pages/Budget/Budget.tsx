@@ -1,4 +1,3 @@
-import {BalancesResponse} from "glentils/dist/types";
 import moment, {Moment} from "moment";
 import React, {useCallback, useEffect, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
@@ -31,13 +30,24 @@ function Budget() {
     },[])
 
     useEffect(() => {
-        const initialMonth = moment().startOf("month")
-        if(dailyBalances.status === 'idle' && activeMonth){
-            dispatch(fetchDailyBalances(activeMonth))
+        if(activeMonth){
+            const isSameMonth = dailyBalances.month ? moment(dailyBalances.month).isSame(activeMonth) : false
+            if(!isSameMonth){
+                dispatch(fetchDailyBalances(activeMonth))
+            }
         }
         if(transactionConfigs.status === 'idle'){
             dispatch(fetchTransactionConfigs())
         }
+    }, [
+        activeMonth,
+        dispatch,
+        dailyBalances,
+        transactionConfigs
+    ])
+
+    useEffect(() => {
+        const initialMonth = moment().startOf("month")
         if(!searchParams.get("month")){
             setSearchParams({
                 month: initialMonth.format("YYYY-MM")
@@ -46,12 +56,7 @@ function Budget() {
             const month = moment(searchParams.get("month")).startOf("month")
             setActiveMonth(month)
         }
-    }, [
-        activeMonth,
-        dispatch,
-        dailyBalances,
-        transactionConfigs
-    ])
+    }, [searchParams])
 
     if(dailyBalances.status === 'idle' || dailyBalances.status === 'loading'){
         return <Loading/>

@@ -1,5 +1,5 @@
-import {AnyAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {BalancesResponse, DailyBalances, PeriodicTransactionConfig} from "glentils/dist/types";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {BalancesResponse, PeriodicTransactionConfig} from "glentils/dist/types";
 import moment, {Moment} from "moment";
 import {WithId} from "mongodb";
 import client from "../../api/client";
@@ -7,6 +7,7 @@ import {DayDetailsDisplay} from "../../app/views/dailyBalances/Calendar/Calendar
 
 type BudgetState = {
     dailyBalances: {
+        month?: string;
         status: string;
         data: DayDetailsDisplay[][]
     };
@@ -62,8 +63,12 @@ export const BuildBalanceMatrix = (input: BalancesResponse, activeMonth: Moment)
 }
 
 export const fetchDailyBalances = createAsyncThunk('budget/fetchDailyBalances', async (month: Moment) => {
-    const data = await client.get.dailyBalances(month);
-    return BuildBalanceMatrix(data, month);
+    const response = await client.get.dailyBalances(month);
+    const data = BuildBalanceMatrix(response, month);
+    return {
+        month: month.format("YYYY-MM"),
+        data
+    };
 })
 
 export const fetchTransactionConfigs = createAsyncThunk('budget/fetchTransactionConfigs', async () => {
@@ -84,7 +89,8 @@ const slice = createSlice({
             })
             .addCase(fetchDailyBalances.fulfilled, (state: BudgetState, action) => {
                 state.dailyBalances.status = 'success'
-                state.dailyBalances.data = action.payload
+                state.dailyBalances.data = action.payload.data
+                state.dailyBalances.month = action.payload.month
             })
             .addCase((fetchDailyBalances.rejected), (state: BudgetState, action) => {
                 state.dailyBalances.status = 'fail'
