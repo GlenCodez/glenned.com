@@ -55,6 +55,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "preinstall": "npx force-resolutions",
-    "clean": "rm -rf node_modules && rm -rf build"
+    "clean": "rm -rf node_modules && rm -rf build",
+    "deploy": "npm run build && AWS_SDK_LOAD_CONFIG=true AWS_PROFILE=deploy-bot NAT"
+  },
+  "deploy": {
+    "siteRoot": "build",
+    "fqdn": "glenned.com"
   }
 }
